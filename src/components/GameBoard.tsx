@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Candy, { CandyColor, CandyType } from './Candy';
 import { useToast } from '@/hooks/use-toast';
@@ -16,6 +15,14 @@ type CandyState = {
   falling: boolean;
   isNew: boolean;
   type: CandyType;
+};
+
+// Define a proper type for the matches
+type CandyMatch = {
+  row: number;
+  col: number;
+  matchLength?: number;
+  direction?: 'horizontal' | 'vertical';
 };
 
 const BOARD_SIZE = 8;
@@ -133,7 +140,7 @@ const GameBoard: React.FC<BoardProps> = ({ onScoreUpdate, onMoveMade, level }) =
   };
 
   const findAllMatches = (currentBoard: CandyState[][]) => {
-    const matches: { row: number; col: number; matchLength?: number; direction?: 'horizontal' | 'vertical' }[] = [];
+    const matches: CandyMatch[] = [];
 
     // Check horizontal matches
     for (let row = 0; row < BOARD_SIZE; row++) {
@@ -273,7 +280,7 @@ const GameBoard: React.FC<BoardProps> = ({ onScoreUpdate, onMoveMade, level }) =
     setIsProcessing(false);
   };
 
-  const processMatches = async (currentBoard: CandyState[][], matchedCandies: { row: number; col: number; matchLength?: number; direction?: 'horizontal' | 'vertical' }[]) => {
+  const processMatches = async (currentBoard: CandyState[][], matchedCandies: CandyMatch[]) => {
     // Group matches by their lengths and find special candy creation points
     const matchGroups: Record<number, { row: number; col: number; direction?: 'horizontal' | 'vertical' }[]> = {};
     
