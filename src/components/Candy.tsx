@@ -23,6 +23,16 @@ export const colorToClass: Record<CandyColor, string> = {
   purple: 'bg-candy-purple',
 };
 
+// Map colors to candy shapes/styles
+export const colorToShape: Record<CandyColor, string> = {
+  red: 'rounded-sm', // Red candies are bean-shaped in the original game
+  orange: 'rounded-full', // Orange candies are round
+  yellow: 'rounded-full', // Yellow candies are round
+  green: 'rounded-md', // Green candies are square with rounded corners
+  blue: 'rounded-full', // Blue candies are round
+  purple: 'rounded-lg', // Purple candies are more like special shapes
+};
+
 const Candy: React.FC<CandyProps> = ({
   color,
   selected,
@@ -34,8 +44,10 @@ const Candy: React.FC<CandyProps> = ({
   return (
     <div
       className={cn(
-        'candy flex items-center justify-center',
+        'candy flex items-center justify-center shadow-inner',
         colorToClass[color],
+        colorToShape[color],
+        'border border-white/30',
         selected && 'selected',
         matched && 'matched',
         falling && 'falling',
@@ -44,7 +56,7 @@ const Candy: React.FC<CandyProps> = ({
       onClick={onClick}
       aria-label={`${color} candy`}
     >
-      <CandyIcon size={24} className="text-white/70" />
+      <div className="candy-highlight absolute inset-0 opacity-60 bg-gradient-to-br from-white/60 to-transparent rounded-[inherit]" style={{clipPath: 'polygon(0 0, 100% 0, 100% 40%, 0% 40%)'}}></div>
     </div>
   );
 };

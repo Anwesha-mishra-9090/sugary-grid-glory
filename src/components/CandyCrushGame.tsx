@@ -5,7 +5,7 @@ import ScoreBoard from './ScoreBoard';
 import GameOver from './GameOver';
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const MAX_MOVES = 20;
 
@@ -28,7 +28,7 @@ const CandyCrushGame: React.FC = () => {
     // Show toast for significant score increases
     if (newScore > score + 50) {
       toast({
-        title: "Great move!",
+        title: "Sweet!",
         description: `You gained ${newScore - score} points!`,
         duration: 2000,
       });
@@ -47,7 +47,7 @@ const CandyCrushGame: React.FC = () => {
     
     toast({
       title: "New Game Started",
-      description: "Good luck!",
+      description: "Sweet! Let's crush some candies!",
       duration: 2000,
     });
   };
@@ -65,24 +65,32 @@ const CandyCrushGame: React.FC = () => {
       </h1>
       <p className="text-center mb-6 text-gray-300">Match 3 or more candies to score points!</p>
       
-      <div className="flex justify-between items-center mb-4">
+      <div className="mb-6">
         <ScoreBoard score={score} movesLeft={movesLeft} />
-        <Button 
-          variant="outline" 
-          size="icon"
-          onClick={handleReset}
-          className="ml-2"
-        >
-          <RefreshCw className="h-5 w-5" />
-        </Button>
       </div>
       
-      <div className="bg-black/30 rounded-lg p-4 backdrop-blur-sm mb-6">
+      <div className="bg-gradient-to-b from-pink-500/20 to-blue-500/20 rounded-lg p-4 backdrop-blur-sm mb-6 shadow-xl">
         <GameBoard 
           key={key}
           onScoreUpdate={handleScoreUpdate} 
           onMoveMade={handleMoveMade} 
         />
+      </div>
+      
+      <div className="flex justify-between items-center">
+        <div className="bg-pink-600/80 px-4 py-2 rounded-xl shadow-lg">
+          <div className="text-xs text-white/80">Moves Left</div>
+          <div className="text-2xl font-bold text-white">{movesLeft}</div>
+        </div>
+        
+        <Button 
+          variant="outline" 
+          size="icon"
+          onClick={handleReset}
+          className="bg-pink-600/80 text-white hover:bg-pink-700/80"
+        >
+          <RefreshCw className="h-5 w-5" />
+        </Button>
       </div>
       
       {isGameOver && (

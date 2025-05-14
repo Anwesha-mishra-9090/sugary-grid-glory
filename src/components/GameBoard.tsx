@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Candy, { CandyColor } from './Candy';
 
@@ -315,20 +314,24 @@ const GameBoard: React.FC<BoardProps> = ({ onScoreUpdate, onMoveMade }) => {
   };
 
   return (
-    <div className="candy-grid max-w-md mx-auto">
-      {board.map((row, rowIndex) => 
-        row.map((candy, colIndex) => (
-          <Candy
-            key={candy.id}
-            color={candy.color}
-            selected={selectedCandy?.row === rowIndex && selectedCandy?.col === colIndex}
-            matched={candy.matched}
-            falling={candy.falling}
-            isNew={candy.isNew}
-            onClick={() => handleCandyClick(rowIndex, colIndex)}
-          />
-        ))
-      )}
+    <div className="game-board-container relative">
+      <div className="candy-board-border bg-blue-700/80 p-3 rounded-2xl shadow-lg">
+        <div className="candy-grid max-w-md mx-auto gap-1.5">
+          {board.map((row, rowIndex) => 
+            row.map((candy, colIndex) => (
+              <Candy
+                key={candy.id}
+                color={candy.color}
+                selected={selectedCandy?.row === rowIndex && selectedCandy?.col === colIndex}
+                matched={candy.matched}
+                falling={candy.falling}
+                isNew={candy.isNew}
+                onClick={() => handleCandyClick(rowIndex, colIndex)}
+              />
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 };
