@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +97,44 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-candy-bg text-candy-light;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  
+  /* Candy-specific styles */
+  .candy-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .candy {
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .candy:hover {
+    transform: scale(1.05);
+  }
+  
+  .candy.selected {
+    box-shadow: 0 0 0 4px white;
+  }
+  
+  .candy.matched {
+    animation: fade-out 0.5s forwards;
+  }
+  
+  .candy.falling {
+    animation: fall 0.5s forwards;
+  }
+  
+  .candy.new {
+    animation: bounce-in 0.3s forwards;
   }
 }
