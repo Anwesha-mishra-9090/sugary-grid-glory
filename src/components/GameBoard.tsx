@@ -282,7 +282,7 @@ const GameBoard: React.FC<BoardProps> = ({ onScoreUpdate, onMoveMade, level }) =
 
   const processMatches = async (currentBoard: CandyState[][], matchedCandies: CandyMatch[]) => {
     // Group matches by their lengths and find special candy creation points
-    const matchGroups: Record<number, { row: number; col: number; direction?: 'horizontal' | 'vertical' }[]> = {};
+    const matchGroups: Record<number, CandyMatch[]> = {};
     
     matchedCandies.forEach(match => {
       const length = match.matchLength || 3;
